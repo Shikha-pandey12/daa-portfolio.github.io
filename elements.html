@@ -1,0 +1,592 @@
+<!DOCTYPE HTML>
+<!--
+	Editorial by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Elements - Editorial by HTML5 UP</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+	</head>
+	<body class="is-preload">
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<div id="main">
+						<div class="inner">
+
+							<!-- Header -->
+								<header id="header">
+									
+								</header>
+
+							<!-- Content -->
+								<section>
+									<header class="main">
+										<h1>Elements</h1>
+									</header>
+
+									<!-- Content -->
+										<h2 id="content">BUSINESS CASE STUDY :-</h2>
+										<p><strong>1.Biodiversity Conservation</strong></p>
+										<p>	<strong>a.Arrays</strong><p>
+										<p><strong>b.Queue</strong></p>
+										<p><strong>c.Prim's Algorithm - Prim's algorithm can help design protected areas for wildlife habitats and wetlands by optimizing connectivity and minimizing costs. Nodes represent key habitats or wetlands, and edges are weighted by the cost or feasibility of connecting them (e.g., land acquisition or restoration costs). The algorithm identifies a network that links all critical areas with minimal cost, ensuring habitat connectivity and ecosystem preservation. This approach supports efficient resource use and maximizes conservation impact.<strong>
+										<p>								
+										<p><strong>2.Traffic and Transportation System-<strong></p>
+											<p>a.Arrays</p>
+											<p>b.Queue</p>
+											<p><strong>c.Kruskal's Algorithm - </strong> Kruskal's algorithm can minimize economic disruption by optimizing resource allocation. It identifies the most cost-effective connections between affected areas, prioritizing critical infrastructure restoration and efficient supply chains, ensuring recovery efforts are cost-effective and promote financial stability.</p>
+
+										<div class="row">
+											<div class="col-6 col-12-small">
+												<h3><strong>SDG'S Involved in the case study:-</strong></h3>
+												<p>SDG 1.No Poverty</p>
+												<p>SDG 8.Decent Work and Economic Growth</p>
+												<p>SDG 9.Industry,Innovation and Infrastructure</p>
+												<p>SDG 11.Sustainable Cities and Communities</p>
+												<p>SDG 17.Partenship for the Goals</p>
+												<p>SDG 13.Responsible Consumption and Production</p>
+											</div>
+											
+											<!-- Break -->
+											<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Business Case Studies</title>
+    <style>
+        pre {
+            background-color: #f4f4f4;
+            padding: 10px;
+            border-radius: 5px;
+            overflow: auto;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+<body>
+
+<h1>BUSINESS CASE STUDIES</h1>
+<button onclick="showCode('Biodiversity')">Biodiversity Conservation</button>
+<button onclick="showCode('Economic')">Economic Disruption system</button>
+
+
+<div id="contentContainer">
+    <p class="placeholder-text">Codes will be displayed here</p>
+</div>
+
+<script>
+// Define the case study code for Biodiversity Conservation (Prim's Algorithm)
+const biodiversityCode = `
+#include <iostream>
+#include <vector>
+#include <queue>
+#include <algorithm>
+
+using namespace std;
+
+// Define the Edge structure to store edges
+struct Edge {
+    int u, v, weight;
+    bool operator<(const Edge& other) const {
+        return weight < other.weight;
+    }
+};
+
+// Union-Find data structure to manage connected components
+class UnionFind {
+public:
+    vector<int> parent, rank;
+
+    UnionFind(int n) {
+        parent.resize(n);
+        rank.resize(n, 0);
+        for (int i = 0; i < n; ++i)
+            parent[i] = i;
+    }
+
+    int find(int x) {
+        if (parent[x] != x)
+            parent[x] = find(parent[x]);
+        return parent[x];
+    }
+
+    void unite(int x, int y) {
+        int rootX = find(x);
+        int rootY = find(y);
+        if (rootX != rootY) {
+            if (rank[rootX] > rank[rootY])
+                parent[rootY] = rootX;
+            else if (rank[rootX] < rank[rootY])
+                parent[rootX] = rootY;
+            else {
+                parent[rootY] = rootX;
+                rank[rootX]++;
+            }
+        }
+    }
+};
+
+// Function to apply Kruskal's Algorithm to find the Minimum Spanning Tree (MST)
+vector<Edge> kruskal(int n, vector<Edge>& edges) {
+    sort(edges.begin(), edges.end()); // Sort edges by weight
+    UnionFind uf(n);
+    vector<Edge> mst;
+
+    for (Edge& e : edges) {
+        if (uf.find(e.u) != uf.find(e.v)) {
+            uf.unite(e.u, e.v);
+            mst.push_back(e);
+        }
+    }
+
+    return mst;
+}
+
+// Function to manage the flow of resources after disruption using a queue
+void resourceRecoveryQueue(const vector<Edge>& mst, int n) {
+    queue<int> recoveryQueue;
+    vector<bool> processed(n, false);
+
+    // Simulating the recovery process for each sector
+    for (int i = 0; i < mst.size(); ++i) {
+        if (!processed[mst[i].u]) {
+            recoveryQueue.push(mst[i].u);
+            processed[mst[i].u] = true;
+        }
+        if (!processed[mst[i].v]) {
+            recoveryQueue.push(mst[i].v);
+            processed[mst[i].v] = true;
+        }
+    }
+
+    // Process each sector from the queue
+    cout << "\nInitiating resource recovery for each sector...\n";
+    while (!recoveryQueue.empty()) {
+        int sector = recoveryQueue.front();
+        recoveryQueue.pop();
+        cout << "Sector " << sector << " is now under recovery.\n";
+    }
+}
+
+// Function to calculate the total cost of the Minimum Spanning Tree
+int calculateTotalCost(const vector<Edge>& mst) {
+    int totalCost = 0;
+    for (const Edge& e : mst) {
+        totalCost += e.weight;
+    }
+    return totalCost;
+}
+
+// Function to take user inputs for the number of sectors and edges
+void inputGraph(int& n, vector<Edge>& edges) {
+    cout << "--------------------------------------------\n";
+    cout << "Please input the number of sectors (nodes): ";
+    cin >> n;
+
+    // Validate input for number of sectors
+    if (n <= 0) {
+        cout << "Error: The number of sectors must be greater than 0.\n";
+        return;
+    }
+
+    int e; // Number of edges
+    cout << "Please input the number of edges (connections between sectors): ";
+    cin >> e;
+
+    // Validate number of edges
+    if (e < 0) {
+        cout << "Error: The number of edges must be non-negative.\n";
+        return;
+    }
+
+    edges.clear(); // Clear previous edge data
+    cout << "--------------------------------------------\n";
+    cout << "Please input the edges in the format (u, v, cost):\n";
+    for (int i = 0; i < e; ++i) {
+        int u, v, cost;
+        cout << "Enter edge " << i + 1 << " (u, v, cost): ";
+        cin >> u >> v >> cost;
+
+        // Validate input for edges
+        if (u < 0 || v < 0 || u >= n || v >= n) {
+            cout << "Invalid sector indices! Please ensure that u and v are within valid sector range (0 to " << n-1 << ").\n";
+            --i; // Decrease to re-enter the same edge
+            continue;
+        }
+        if (cost < 0) {
+            cout << "Error: The cost must be non-negative.\n";
+            --i; // Decrease to re-enter the same edge
+            continue;
+        }
+
+        edges.push_back({u, v, cost});
+    }
+}
+
+void printMST(const vector<Edge>& mst) {
+    cout << "\n==================== Minimum Spanning Tree (MST) ====================\n";
+    if (mst.empty()) {
+        cout << "No edges found for the MST. Please check the graph data.\n";
+        return;
+    }
+    cout << "The optimal recovery connections between sectors are:\n";
+    for (const Edge& e : mst) {
+        cout << "Recovery link: Sector " << e.u << " <-> Sector " << e.v << " with recovery cost: " << e.weight << "\n";
+    }
+}
+
+int main() {
+    int n = 0;  // Number of sectors
+    vector<Edge> edges;
+    vector<Edge> mst;
+    bool dataEntered = false;
+
+    while (true) {
+        int choice;
+        cout << "\n----------------------- Menu -----------------------\n";
+        cout << "1. Enter Graph Data\n";
+        cout << "2. Calculate and Display MST\n";
+        cout << "3. Run Resource Recovery\n";
+        cout << "4. Exit\n";
+        cout << "-----------------------------------------------------\n";
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+                // Input graph data
+                inputGraph(n, edges);
+                dataEntered = true;
+                cout << "Graph data successfully entered.\n";
+                break;
+
+            case 2:
+                // Calculate and display the MST
+                if (dataEntered) {
+                    mst = kruskal(n, edges);
+                    printMST(mst);
+                    int totalCost = calculateTotalCost(mst);
+                    cout << "\nTotal recovery cost (from MST): " << totalCost << " units.\n";
+                } else {
+                    cout << "Please enter graph data first before calculating MST.\n";
+                }
+                break;
+
+            case 3:
+                // Run resource recovery
+                if (dataEntered && !mst.empty()) {
+                    resourceRecoveryQueue(mst, n);
+                } else {
+                    cout << "Please calculate the MST first to proceed with recovery.\n";
+                }
+                break;
+
+            case 4:
+                // Exit the program
+                cout << "Thank you for using the system. Exiting the program...\n";
+                return 0;
+
+            default:
+                cout << "Invalid choice! Please try again.\n";
+        }
+    }
+}
+`;
+
+// Define the case study code for Economic Disruption System
+const economicCode = `
+#include <iostream>
+#include <vector>
+#include <queue>
+#include <algorithm>
+
+using namespace std;
+
+// Define the Edge structure to store edges
+struct Edge {
+    int u, v, weight;
+    bool operator<(const Edge& other) const {
+        return weight < other.weight;
+    }
+};
+
+// Union-Find data structure to manage connected components
+class UnionFind {
+public:
+    vector<int> parent, rank;
+
+    UnionFind(int n) {
+        parent.resize(n);
+        rank.resize(n, 0);
+        for (int i = 0; i < n; ++i)
+            parent[i] = i;
+    }
+
+    int find(int x) {
+        if (parent[x] != x)
+            parent[x] = find(parent[x]);
+        return parent[x];
+    }
+
+    void unite(int x, int y) {
+        int rootX = find(x);
+        int rootY = find(y);
+        if (rootX != rootY) {
+            if (rank[rootX] > rank[rootY])
+                parent[rootY] = rootX;
+            else if (rank[rootX] < rank[rootY])
+                parent[rootX] = rootY;
+            else {
+                parent[rootY] = rootX;
+                rank[rootX]++;
+            }
+        }
+    }
+};
+
+// Function to apply Kruskal's Algorithm to find the Minimum Spanning Tree (MST)
+vector<Edge> kruskal(int n, vector<Edge>& edges) {
+    sort(edges.begin(), edges.end()); // Sort edges by weight
+    UnionFind uf(n);
+    vector<Edge> mst;
+
+    for (Edge& e : edges) {
+        if (uf.find(e.u) != uf.find(e.v)) {
+            uf.unite(e.u, e.v);
+            mst.push_back(e);
+        }
+    }
+
+    return mst;
+}
+
+// Function to manage the flow of resources after disruption using a queue
+void resourceRecoveryQueue(const vector<Edge>& mst, int n) {
+    queue<int> recoveryQueue;
+    vector<bool> processed(n, false);
+
+    // Simulating the recovery process for each sector
+    for (int i = 0; i < mst.size(); ++i) {
+        if (!processed[mst[i].u]) {
+            recoveryQueue.push(mst[i].u);
+            processed[mst[i].u] = true;
+        }
+        if (!processed[mst[i].v]) {
+            recoveryQueue.push(mst[i].v);
+            processed[mst[i].v] = true;
+        }
+    }
+
+    // Process each sector from the queue
+    cout << "\nStarting resource recovery (Sector-wise):\n";
+    while (!recoveryQueue.empty()) {
+        int sector = recoveryQueue.front();
+        recoveryQueue.pop();
+        cout << "Recovering sector: " << sector << endl;
+    }
+}
+
+// Function to calculate the total cost of the Minimum Spanning Tree
+int calculateTotalCost(const vector<Edge>& mst) {
+    int totalCost = 0;
+    for (const Edge& e : mst) {
+        totalCost += e.weight;
+    }
+    return totalCost;
+}
+
+// Function to take user inputs for the number of sectors and edges
+void inputGraph(int& n, vector<Edge>& edges) {
+    cout << "Enter the number of sectors (nodes): ";
+    cin >> n;
+
+    int e; // Number of edges
+    cout << "Enter the number of edges (connections between sectors): ";
+    cin >> e;
+
+    // Clear previous edges before taking new input
+    edges.clear();
+
+    cout << "Enter the edges in the format (u, v, cost):\n";
+    for (int i = 0; i < e; ++i) {
+        int u, v, cost;
+        cout << "Enter edge " << i + 1 << " (u, v, cost): ";
+        cin >> u >> v >> cost;
+        edges.push_back({u, v, cost});
+    }
+}
+
+void printMST(const vector<Edge>& mst) {
+    cout << "\nMinimum Spanning Tree (MST) edges (Optimal Recovery Links):\n";
+    for (const Edge& e : mst) {
+        cout << e.u << " - " << e.v << " with cost " << e.weight << endl;
+    }
+}
+
+int main() {
+    int n = 0;  // Number of sectors
+    vector<Edge> edges;
+    vector<Edge> mst;
+    bool dataEntered = false;
+
+    while (true) {
+        int choice;
+        cout << "\nMenu:\n";
+        cout << "1. Enter Graph Data\n";
+        cout << "2. Calculate and Display MST\n";
+        cout << "3. Run Resource Recovery\n";
+        cout << "4. Exit\n";
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+                // Input graph data
+                inputGraph(n, edges);
+                dataEntered = true;
+                cout << "Graph data entered successfully.\n";
+                break;
+
+            case 2:
+                // Calculate and display the MST
+                if (dataEntered) {
+                    mst = kruskal(n, edges);
+                    printMST(mst);
+                    int totalCost = calculateTotalCost(mst);
+                    cout << "\nTotal cost of recovery (MST cost): " << totalCost << endl;
+                } else {
+                    cout << "Please enter graph data first.\n";
+                }
+                break;
+
+            case 3:
+                // Run resource recovery
+                if (dataEntered && !mst.empty()) {
+                    resourceRecoveryQueue(mst, n);
+                } else {
+                    cout << "Please calculate the MST first.\n";
+                }
+                break;
+
+            case 4:
+                // Exit the program
+                cout << "Exiting program...\n";
+                return 0;
+
+            default:
+                cout << "Invalid choice, please try again.\n";
+        }
+    }
+}
+`;
+
+// Function to show the corresponding code based on the case study clicked
+function showCode(caseStudy) {
+    const contentContainer = document.getElementById('contentContainer');
+    
+    // Check the case study and display the code in <pre> tag
+    if (caseStudy === 'Biodiversity') {
+        contentContainer.innerHTML = '<pre>' + biodiversityCode + '</pre>';
+    } else if (caseStudy === 'Economic') {
+        contentContainer.innerHTML = '<pre>' + economicCode + '</pre>';
+    }
+}
+</script>
+
+</body>
+</html>
+
+
+
+
+
+									<hr class="major" />
+
+									<!-- Elements -->
+										
+										<div class="row gtr-200">
+											<div class="col-6 col-12-medium">
+
+												<!-- Text stuff -->
+													
+
+												<!-- Lists -->
+
+													
+													
+														
+
+													
+
+												<!-- Blockquote -->
+												<!-- Table -->
+											</div>
+											<div class="col-6 col-12-medium">
+
+												<!-- Buttons -->
+
+
+												<!-- Form -->
+													
+
+												<!-- Image -->
+													
+
+													
+
+												<!-- Box -->
+													
+
+												<!-- Preformatted Code -->
+													
+
+											</div>
+										</div>
+
+								</section>
+
+						</div>
+					</div>
+
+				<!-- Sidebar -->
+					<div id="sidebar">
+						<div class="inner">
+
+							<!-- Search -->
+								<section id="search" class="alt">
+									<form method="post" action="#">
+										<input type="text" name="query" id="query" placeholder="Search" />
+									</form>
+								</section>
+
+							<!-- Menu -->
+								<nav id="menu">
+									<header class="major">
+										<h2>Menu</h2>
+									</header>
+									<ul>
+										<li><a href="index.html">Homepage</a></li>
+										<li><a href="generic.html">COURSE INTRODUCTION</a></li>
+										<li><a href="elements.html">MY WORK</a></li>
+										<li>
+								</nav>
+
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
